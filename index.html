@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Unlock Link</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: #f9f9f9;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+    }
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+    p.instructions {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      color: #555;
+    }
+    .task {
+      display: flex;
+      align-items: center;
+      background: #fff;
+      padding: 1rem;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      margin-bottom: 1rem;
+      width: 100%;
+      max-width: 400px;
+    }
+    .task input {
+      margin-right: 1rem;
+      transform: scale(1.3);
+    }
+    .task i {
+      color: red;
+      margin-right: 0.5rem;
+    }
+    .task label {
+      font-size: 1rem;
+    }
+    .progress-container {
+      width: 100%;
+      max-width: 400px;
+      background-color: #e0e0e0;
+      border-radius: 999px;
+      overflow: hidden;
+      margin: 1rem 0;
+    }
+    .progress-bar {
+      height: 20px;
+      background-color: #2196F3;
+      width: 0%;
+      transition: width 0.3s;
+    }
+    .open-link {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 1rem;
+      opacity: 0.5;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    .open-link.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .faq {
+      max-width: 600px;
+      margin-top: 3rem;
+    }
+    .faq h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .faq p {
+      color: #666;
+      font-size: 1rem;
+    }
+    @media (max-width: 500px) {
+      h1 { font-size: 2rem; }
+      .task label { font-size: 0.95rem; }
+    }
+  </style>
+</head>
+<body>
+  <h1>Unlock Link</h1>
+  <p class="instructions">Complete the actions and unlock the link</p>
+
+  <div class="task">
+    <input type="checkbox" id="subscribe">
+    <i class="fab fa-youtube"></i>
+    <label for="subscribe">Subscribe on YouTube</label>
+  </div>
+
+  <div class="task">
+    <input type="checkbox" id="likeComment">
+    <i class="fab fa-youtube"></i>
+    <label for="likeComment">Like & Comment on Video</label>
+  </div>
+
+  <div class="progress-container">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+
+  <button id="openLink" class="open-link">Open Link</button>
+
+  <div class="faq">
+    <h2>FAQ</h2>
+    <p>To unlock the link, make sure you've subscribed to the channel and liked and commented on the video. Then check both boxes to activate the button. Once complete, click "Open Link" to access the content.</p>
+  </div>
+
+  <script>
+    const subscribeBox = document.getElementById('subscribe');
+    const likeCommentBox = document.getElementById('likeComment');
+    const progressBar = document.getElementById('progressBar');
+    const openLinkBtn = document.getElementById('openLink');
+
+    function updateProgress() {
+      const total = 2;
+      const done = [subscribeBox.checked, likeCommentBox.checked].filter(Boolean).length;
+      const percent = (done / total) * 100;
+      progressBar.style.width = percent + '%';
+
+      if (done === 2) {
+        openLinkBtn.classList.add('active');
+      } else {
+        openLinkBtn.classList.remove('active');
+      }
+    }
+
+    subscribeBox.addEventListener('change', updateProgress);
+    likeCommentBox.addEventListener('change', updateProgress);
+
+    openLinkBtn.addEventListener('click', () => {
+      if (openLinkBtn.classList.contains('active')) {
+        window.open('https://your-unlocked-link-here.com', '_blank');
+      }
+    });
+  </script>
+</body>
+</html>
