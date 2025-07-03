@@ -24,6 +24,7 @@
       font-size: 1.2rem;
       margin-bottom: 2rem;
       color: #555;
+      text-align: center;
     }
     .task {
       display: flex;
@@ -36,30 +37,12 @@
       width: 100%;
       max-width: 400px;
     }
-    .task input {
-      margin-right: 1rem;
-      transform: scale(1.3);
-    }
     .task i {
       color: red;
       margin-right: 0.5rem;
     }
-    .task label {
+    .task span {
       font-size: 1rem;
-    }
-    .progress-container {
-      width: 100%;
-      max-width: 400px;
-      background-color: #e0e0e0;
-      border-radius: 999px;
-      overflow: hidden;
-      margin: 1rem 0;
-    }
-    .progress-bar {
-      height: 20px;
-      background-color: #2196F3;
-      width: 0%;
-      transition: width 0.3s;
     }
     .open-link {
       background-color: #4CAF50;
@@ -69,14 +52,11 @@
       font-size: 1rem;
       border-radius: 8px;
       cursor: pointer;
-      margin-top: 1rem;
-      opacity: 0.5;
-      pointer-events: none;
-      transition: opacity 0.3s;
+      margin-top: 1.5rem;
+      transition: background-color 0.3s;
     }
-    .open-link.active {
-      opacity: 1;
-      pointer-events: auto;
+    .open-link.clicked {
+      background-color: #2e7d32;
     }
     .faq {
       max-width: 600px;
@@ -92,7 +72,7 @@
     }
     @media (max-width: 500px) {
       h1 { font-size: 2rem; }
-      .task label { font-size: 0.95rem; }
+      .task span { font-size: 0.95rem; }
     }
   </style>
 </head>
@@ -101,54 +81,27 @@
   <p class="instructions">Complete the actions and unlock the link</p>
 
   <div class="task">
-    <input type="checkbox" id="subscribe">
     <i class="fab fa-youtube"></i>
-    <label for="subscribe">Subscribe on YouTube</label>
+    <span>Subscribe on YouTube</span>
   </div>
 
   <div class="task">
-    <input type="checkbox" id="likeComment">
     <i class="fab fa-youtube"></i>
-    <label for="likeComment">Like & Comment on Video</label>
-  </div>
-
-  <div class="progress-container">
-    <div class="progress-bar" id="progressBar"></div>
+    <span>Like & Comment on Video</span>
   </div>
 
   <button id="openLink" class="open-link">Open Link</button>
 
   <div class="faq">
     <h2>FAQ</h2>
-    <p>To unlock the link, make sure you've subscribed to the channel and liked and commented on the video. Then check both boxes to activate the button. Once complete, click "Open Link" to access the content.</p>
+    <p>To unlock the link, just click the "Open Link" button after subscribing and engaging with the video. The button will take you directly to the content.</p>
   </div>
 
   <script>
-    const subscribeBox = document.getElementById('subscribe');
-    const likeCommentBox = document.getElementById('likeComment');
-    const progressBar = document.getElementById('progressBar');
     const openLinkBtn = document.getElementById('openLink');
-
-    function updateProgress() {
-      const total = 2;
-      const done = [subscribeBox.checked, likeCommentBox.checked].filter(Boolean).length;
-      const percent = (done / total) * 100;
-      progressBar.style.width = percent + '%';
-
-      if (done === 2) {
-        openLinkBtn.classList.add('active');
-      } else {
-        openLinkBtn.classList.remove('active');
-      }
-    }
-
-    subscribeBox.addEventListener('change', updateProgress);
-    likeCommentBox.addEventListener('change', updateProgress);
-
     openLinkBtn.addEventListener('click', () => {
-      if (openLinkBtn.classList.contains('active')) {
-        window.open('https://your-unlocked-link-here.com', '_blank');
-      }
+      openLinkBtn.classList.add('clicked');
+      window.open('https://youtu.be/bwNdoDMCM24?si=Gv4249WW9IOhoTIF', '_blank');
     });
   </script>
 </body>
