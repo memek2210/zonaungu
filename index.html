@@ -1,90 +1,154 @@
-
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Unlock Link</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
   <style>
     body {
       margin: 0;
+      padding: 1rem;
       font-family: 'Inter', sans-serif;
-      background-color: #f9f9f9;
+      background-color: #f7f7f7;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 2rem;
     }
-    h1 {
-      font-size: 2.5rem;
+    .card {
+      background-color: white;
+      border-radius: 16px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      padding: 1.5rem;
+      max-width: 400px;
+      width: 100%;
+      margin-bottom: 1.5rem;
+    }
+    h2 {
+      text-align: center;
       margin-bottom: 0.5rem;
     }
-    p.instructions {
-      font-size: 1.2rem;
-      margin-bottom: 2rem;
-      color: #555;
+    .instruction {
       text-align: center;
+      color: #666;
+      margin-bottom: 1rem;
     }
-    .button {
-      background-color: #2196F3;
-      color: white;
-      padding: 0.75rem 1.5rem;
+    .action-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: #ddd;
       border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      margin: 0.5rem;
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      margin-bottom: 0.75rem;
       font-size: 1rem;
-      transition: background-color 0.3s;
+      color: #444;
+      width: 100%;
+      cursor: pointer;
     }
-    .button.clicked {
-      background-color: #4CAF50;
+    .action-btn.completed {
+      background-color: #c8e6c9;
+      color: #2e7d32;
     }
-    .download-link {
-      margin-top: 2rem;
+    .progress-bar {
+      background-color: #e0e0e0;
+      border-radius: 8px;
+      height: 6px;
+      margin: 0.5rem 0 1rem;
+      overflow: hidden;
+    }
+    .progress {
+      background-color: #2979ff;
+      width: 0%;
+      height: 100%;
+      transition: width 0.3s;
+    }
+    .open-link {
+      background-color: #2e7d32;
+      color: white;
+      padding: 0.75rem;
+      border: none;
+      border-radius: 8px;
+      width: 100%;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      opacity: 0.5;
       pointer-events: none;
-      color: grey;
-      text-decoration: none;
-      font-size: 1.2rem;
+      transition: opacity 0.3s;
     }
-    .download-link.active {
+    .open-link.active {
+      opacity: 1;
       pointer-events: auto;
-      color: #2196F3;
     }
-    @media (max-width: 600px) {
-      h1 {
-        font-size: 1.8rem;
-      }
-      .instructions {
-        font-size: 1rem;
-      }
-      .button {
-        width: 100%;
-        font-size: 1rem;
-      }
+    .faq {
+      text-align: left;
+    }
+    .faq h3 {
+      margin-top: 0;
     }
   </style>
 </head>
 <body>
+  <div class="card">
+    <h2>Unlock Link</h2>
+    <p class="instruction">Complete the actions and unlock the link</p>
+    <button class="action-btn" id="subscribeBtn">
+      <span>Subscribe on YouTube</span>
+      <span class="check" id="subCheck">&#10003;</span>
+    </button>
+    <button class="action-btn" id="likeBtn">
+      <span>Like & Comment on Video</span>
+      <span class="check" id="likeCheck">&#10003;</span>
+    </button>
+    <p><strong>Unlock Progress</strong> <span style="float:right;" id="progressText">0/2</span></p>
+    <div class="progress-bar">
+      <div class="progress" id="progressBar"></div>
+    </div>
+    <a href="https://besargaji.com/twY38NkvSG8" target="_blank">
+      <button class="open-link" id="openLinkBtn">🔐 Open Link</button>
+    </a>
+  </div>  <div class="card faq">
+    <h3>FAQ</h3>
+    <p><strong>How to Unlock a Link on link2unlock.com</strong></p>
+    <p>To unlock a link on rabitlink.com, follow these steps:</p>
+    <ol>
+      <li>Complete all the required actions set by the creator.</li>
+      <li>Wait until your progress bar reaches full.</li>
+      <li>Click "Open Link" to access the content.</li>
+    </ol>
+  </div>  <script>
+    let completed = 0;
 
-  <h1>Unlock the Download Link</h1>
-  <p class="instructions">Please click Like and Subscribe buttons to unlock the download link.</p>
+    function updateProgress() {
+      document.getElementById("progressText").innerText = `${completed}/2`;
+      document.getElementById("progressBar").style.width = `${(completed / 2) * 100}%`;
+      if (completed === 2) {
+        document.getElementById("openLinkBtn").classList.add("active");
+      }
+    }
 
-  <a href="https://youtu.be/bwNdoDMCM24" target="_blank">
-    <button class="button">👍 Like Video</button>
-  </a>
-  <button class="button" id="subscribeButton">🔔 Subscribe Channel</button>
-
-  <a id="downloadLink" class="download-link" href="https://besargaji.com/twY38NkvSG8" target="_blank">Download Link</a>
-
-  <script>
-    document.getElementById("subscribeButton").addEventListener("click", function () {
-      window.open("https://youtube.com/@zonaungu", "_blank");
-      this.classList.add("clicked");
-      document.getElementById("downloadLink").classList.add("active");
+    document.getElementById("subscribeBtn").addEventListener("click", function() {
+      if (!this.classList.contains("completed")) {
+        this.classList.add("completed");
+        completed++;
+        updateProgress();
+        window.open("https://youtube.com/@zonaungu", "_blank");
+      }
     });
-  </script>
 
-</body>
+    document.getElementById("likeBtn").addEventListener("click", function() {
+      if (!this.classList.contains("completed")) {
+        this.classList.add("completed");
+        completed++;
+        updateProgress();
+        window.open("https://youtu.be/bwNdoDMCM24", "_blank");
+      }
+    });
+
+    updateProgress();
+  </script></body>
 </html>
