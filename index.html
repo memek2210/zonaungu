@@ -2,13 +2,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>zona ungu</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <title>Zona Ungu</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta property="og:title" content="Zona Ungu | Unlock Link">
+  <meta property="og:description" content="Klik tombol untuk membuka link download eksklusif!">
+  <meta property="og:image" content="thumbnail.jpg">
   <style>
     body {
       margin: 0;
       padding: 1rem;
-      font-family: 'Inter', sans-serif;
+      font-family: 'Poppins', sans-serif;
       background-color: #f7f7f7;
       display: flex;
       flex-direction: column;
@@ -36,19 +40,26 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background-color: #ddd;
+      background-color: #e0d3f7;
       border: none;
       border-radius: 8px;
       padding: 0.75rem 1rem;
       margin-bottom: 0.75rem;
       font-size: 1rem;
-      color: #444;
+      color: #4a148c;
       width: 100%;
       cursor: pointer;
+      transition: all 0.3s ease-in-out;
     }
     .action-btn.completed {
       background-color: #c8e6c9;
       color: #2e7d32;
+    }
+    .check {
+      visibility: hidden;
+    }
+    .completed .check {
+      visibility: visible;
     }
     .progress-bar {
       background-color: #e0e0e0;
@@ -58,31 +69,30 @@
       overflow: hidden;
     }
     .progress {
-      background-color: #2979ff;
+      background-color: #6A1B9A;
       width: 0%;
       height: 100%;
       transition: width 0.3s;
     }
-    .open-link {
-      background-color: #2e7d32;
+    .open-link-button {
+      background-color: #6A1B9A;
       color: white;
       padding: 0.75rem;
       border: none;
       border-radius: 8px;
       width: 100%;
       font-size: 1rem;
-      cursor: pointer;
+      cursor: not-allowed;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 0.5rem;
       opacity: 0.5;
-      pointer-events: none;
-      transition: opacity 0.3s;
+      transition: all 0.3s ease-in-out;
     }
-    .open-link.active {
+    .open-link-button.active {
+      cursor: pointer;
       opacity: 1;
-      pointer-events: auto;
     }
     .faq {
       text-align: left;
@@ -90,45 +100,82 @@
     .faq h3 {
       margin-top: 0;
     }
+    #toast {
+      visibility: hidden;
+      min-width: 200px;
+      background-color: #4caf50;
+      color: white;
+      text-align: center;
+      border-radius: 8px;
+      padding: 10px;
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1;
+    }
+    #toast.show {
+      visibility: visible;
+      animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    }
+    @keyframes fadein {
+      from { bottom: 0; opacity: 0; }
+      to { bottom: 30px; opacity: 1; }
+    }
+    @keyframes fadeout {
+      from { bottom: 30px; opacity: 1; }
+      to { bottom: 0; opacity: 0; }
+    }
   </style>
 </head>
 <body>
+  <img src="logo.png" alt="Zona Ungu" style="width: 100px; margin-bottom: 1rem;">
   <div class="card">
-    <h2>Unlock Link</h2>
+    <h2>Zona Ungu</h2>
     <p class="instruction">Complete the actions and unlock the link</p>
     <button class="action-btn" id="subscribeBtn">
       <span>Subscribe on YouTube</span>
-      <span class="check" id="subCheck">&#10003;</span>
+      <span class="check"><i class="fas fa-check-circle"></i></span>
     </button>
     <button class="action-btn" id="likeBtn">
       <span>Like & Comment on Video</span>
-      <span class="check" id="likeCheck">&#10003;</span>
+      <span class="check"><i class="fas fa-check-circle"></i></span>
     </button>
     <p><strong>Unlock Progress</strong> <span style="float:right;" id="progressText">0/2</span></p>
     <div class="progress-bar">
       <div class="progress" id="progressBar"></div>
     </div>
-    <a href="https://besargaji.com/twY38NkvSG8" target="_blank">
-      <button class="open-link" id="openLinkBtn">🔐 Open Link</button>
-    </a>
+    <button class="open-link-button" id="openLinkBtn">🔐 Open Link</button>
   </div>  <div class="card faq">
     <h3>FAQ</h3>
-    <p><strong>How to Unlock a Link on link2unlock.com</strong></p>
+    <p><strong>How to Unlock a Link on Zona Ungu</strong></p>
     <p>To unlock a link on rabitlink.com, follow these steps:</p>
     <ol>
       <li>Complete all the required actions set by the creator.</li>
       <li>Wait until your progress bar reaches full.</li>
       <li>Click "Open Link" to access the content.</li>
     </ol>
-  </div>  <script>
+  </div>  <div id="toast">Berhasil! Terima kasih 🙌</div>  <script>
     let completed = 0;
 
     function updateProgress() {
       document.getElementById("progressText").innerText = `${completed}/2`;
       document.getElementById("progressBar").style.width = `${(completed / 2) * 100}%`;
       if (completed === 2) {
-        document.getElementById("openLinkBtn").classList.add("active");
+        const openBtn = document.getElementById("openLinkBtn");
+        openBtn.classList.add("active");
+        openBtn.disabled = false;
+        openBtn.style.cursor = "pointer";
+        openBtn.addEventListener("click", function () {
+          window.open("https://besargaji.com/twY38NkvSG8", "_blank");
+        });
       }
+    }
+
+    function showToast() {
+      const toast = document.getElementById("toast");
+      toast.className = "show";
+      setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 3000);
     }
 
     document.getElementById("subscribeBtn").addEventListener("click", function() {
@@ -137,6 +184,7 @@
         completed++;
         updateProgress();
         window.open("https://youtube.com/@zonaungu", "_blank");
+        showToast();
       }
     });
 
@@ -146,6 +194,7 @@
         completed++;
         updateProgress();
         window.open("https://youtu.be/bwNdoDMCM24", "_blank");
+        showToast();
       }
     });
 
