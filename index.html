@@ -1,157 +1,90 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Unlock Link</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@500;600&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
   <style>
     body {
       margin: 0;
-      font-family: 'Poppins', sans-serif;
+      font-family: 'Inter', sans-serif;
       background-color: #f9f9f9;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      min-height: 100vh;
       padding: 2rem;
-      text-align: center;
     }
     h1 {
-      font-size: 2.8rem;
-      font-weight: 600;
+      font-size: 2.5rem;
       margin-bottom: 0.5rem;
     }
     p.instructions {
       font-size: 1.2rem;
-      color: #555;
       margin-bottom: 2rem;
+      color: #555;
+      text-align: center;
     }
-    .task {
-      display: flex;
-      align-items: center;
-      background: #fff;
-      padding: 1rem;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-      margin-bottom: 1rem;
-      width: 100%;
-      max-width: 400px;
-      justify-content: center;
-    }
-    .task i {
-      color: red;
-      margin-right: 0.5rem;
-    }
-    .task span {
-      font-size: 1rem;
-    }
-    .checkbox-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    .checkbox-container label {
-      margin-bottom: 0.5rem;
-      font-size: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    input[type="checkbox"] {
-      transform: scale(1.2);
-    }
-    .button-group {
-      margin-top: 1.5rem;
-      display: flex;
-      gap: 1rem;
-      flex-direction: column;
-    }
-    .button-group button {
-      background-color: #4CAF50;
+    .button {
+      background-color: #2196F3;
       color: white;
+      padding: 0.75rem 1.5rem;
       border: none;
-      padding: 0.8rem 1.5rem;
-      font-size: 1.1rem;
-      font-weight: 500;
-      border-radius: 8px;
-      cursor: not-allowed;
-      opacity: 0.5;
-      transition: all 0.3s ease;
-    }
-    .button-group button.enabled {
+      border-radius: 12px;
       cursor: pointer;
-      opacity: 1;
-    }
-    .faq {
-      max-width: 600px;
-      margin-top: 3rem;
-    }
-    .faq h2 {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-    }
-    .faq p {
-      color: #666;
+      margin: 0.5rem;
       font-size: 1rem;
+      transition: background-color 0.3s;
+    }
+    .button.clicked {
+      background-color: #4CAF50;
+    }
+    .download-link {
+      margin-top: 2rem;
+      pointer-events: none;
+      color: grey;
+      text-decoration: none;
+      font-size: 1.2rem;
+    }
+    .download-link.active {
+      pointer-events: auto;
+      color: #2196F3;
+    }
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 1.8rem;
+      }
+      .instructions {
+        font-size: 1rem;
+      }
+      .button {
+        width: 100%;
+        font-size: 1rem;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>Unlock Link</h1>
-  <p class="instructions">Complete the actions and unlock the link</p>
 
-  <div class="checkbox-container">
-    <label><input type="checkbox" id="check1"/> <i class="fab fa-youtube"></i> Subscribe on YouTube</label>
-    <label><input type="checkbox" id="check2"/> <i class="fab fa-youtube"></i> Like & Comment on Video</label>
-  </div>
+  <h1>Unlock the Download Link</h1>
+  <p class="instructions">Please click Like and Subscribe buttons to unlock the download link.</p>
 
-  <div class="button-group">
-    <button id="openYoutube" disabled>Open YouTube</button>
-    <button id="downloadFile" disabled>Download File</button>
-  </div>
+  <a href="https://youtu.be/bwNdoDMCM24" target="_blank">
+    <button class="button">👍 Like Video</button>
+  </a>
+  <button class="button" id="subscribeButton">🔔 Subscribe Channel</button>
 
-  <div class="faq">
-    <h2>FAQ</h2>
-    <p>To unlock the link and download, make sure you've subscribed and liked/commented. Then check both boxes to activate the buttons.</p>
-  </div>
+  <a id="downloadLink" class="download-link" href="https://besargaji.com/twY38NkvSG8" target="_blank">Download Link</a>
 
   <script>
-    const check1 = document.getElementById('check1');
-    const check2 = document.getElementById('check2');
-    const openYoutube = document.getElementById('openYoutube');
-    const downloadFile = document.getElementById('downloadFile');
-
-    function updateButtonState() {
-      if (check1.checked && check2.checked) {
-        openYoutube.disabled = false;
-        downloadFile.disabled = false;
-        openYoutube.classList.add('enabled');
-        downloadFile.classList.add('enabled');
-      } else {
-        openYoutube.disabled = true;
-        downloadFile.disabled = true;
-        openYoutube.classList.remove('enabled');
-        downloadFile.classList.remove('enabled');
-      }
-    }
-
-    check1.addEventListener('change', updateButtonState);
-    check2.addEventListener('change', updateButtonState);
-
-    openYoutube.addEventListener('click', () => {
-      if (!openYoutube.disabled) {
-        window.open('https://youtu.be/bwNdoDMCM24?si=Gv4249WW9IOhoTIF', '_blank');
-      }
-    });
-
-    downloadFile.addEventListener('click', () => {
-      if (!downloadFile.disabled) {
-        window.open('https://besargaji.com/twY38NkvSG8', '_blank');
-      }
+    document.getElementById("subscribeButton").addEventListener("click", function () {
+      window.open("https://youtube.com/@zonaungu", "_blank");
+      this.classList.add("clicked");
+      document.getElementById("downloadLink").classList.add("active");
     });
   </script>
+
 </body>
 </html>
